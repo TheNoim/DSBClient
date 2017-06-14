@@ -1,5 +1,8 @@
 import DSBAPI from 'dsbapi';
 import Promise from 'bluebird';
+import rp from 'request-promise';
+import cheerio from 'cheerio';
+import 'datejs';
 
 export default class DSBClient {
 
@@ -106,6 +109,30 @@ export default class DSBClient {
     }
 
     static _processed_timetable(timetables) {
-
+        return Promise.map(timetables, (table) => {
+            if (!table['Childs']) return Promise.reject(new Error("Timetable has no child array."));
+            if (!Array.isArray(table['Childs'])) return Promise.reject(new Error("Timetable child field is not an array."));
+            if (table['Childs'].length === 0) return Promise.reject(new Error("Timetable child array length is 0."));
+            if (typeof table['Childs'][0] !== 'object' || !table['Childs'][0]['Detail']) return Promise.reject(new Error("Corrupted timetable."));
+            return rp({
+                uri: table['Childs'][0]['Detail'],
+                transform: function (body) {
+                    return cheerio.load(body);
+                }
+            }).then($ => {
+                const MonTitle = $(".mon_title");
+                if (!MonTitle.text()) return Promise.reject(new Error("Can not find 'mon_title' in timetable."));
+                if (MonTitle.text().match(/\d*\.\d*\.\d*/).length === 0) return Promise.reject(new Error("Can not find date of timetable."));
+                try {
+                    const date = Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0]);
+                    return Promise.resolve({
+                        src: table['Childs'][0]['Detail'],
+                        date: Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0])
+                    });
+                } catch (e) {
+                    return Promise.reject(new Error("Can't parse date of timetable."));
+                }
+            });
+        });
     }
 }
