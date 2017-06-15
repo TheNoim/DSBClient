@@ -67,13 +67,13 @@ export default class DSBClient {
                             fdata[tdata.kind] = tdata.data;
                         });
                     } else if (method['MethodName'] === "tiles") {
-                        return Promise.resolve();
-                        // TODO: AUSHÄNGE PROMISE
+                        return DSBClient._processed_tiles(method['Childs']).then(tdata => {
+                            fdata[tdata.kind] = tdata.data;
+                        });
                     } else if (method['MethodName'] === "news") {
                         return DSBClient._processed_news(method['Childs']).then(tdata => {
                             fdata[tdata.kind] = tdata.data;
                         });
-                        // TODO: NEWS PROMISE
                     } else {
                         return Promise.resolve();
                     }
@@ -170,4 +170,35 @@ export default class DSBClient {
             });
         });
     }
+
+    static _processed_tiles(tiles) {
+        return Promise.map(tiles, (tile) => {
+            if (!tile || !tile["Childs"] || !Array.isArray(tile["Childs"])) return Promise.reject(new Error("Corrupted tile."));
+            return Promise.map(tile["Childs"], (tile2) => {
+                return Promise.resolve({
+                    date: tile2["Date"],
+                    title: tile2["Title"],
+                    detail: tile2["Detail"]
+                });
+            });
+        }).then(data => {
+            return Promise.resolve({
+                kind: "tiles",
+                data: data.combine()
+            });
+        });
+    }
+
 }
+
+Array.prototype.combine = function () {
+    let x = [];
+    for (let i = 0; i < this.length; i++) {
+        if (Array.isArray(this[i])) {
+            for (let ii = 0; ii < this[i].length; ii++) {
+                x.push(this[i][ii]);
+            }
+        }
+    }
+    return x;
+};
