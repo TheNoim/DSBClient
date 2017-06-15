@@ -69,8 +69,10 @@ export default class DSBClient {
                     } else if (method['MethodName'] === "tiles") {
                         return Promise.resolve();
                         // TODO: AUSHÄNGE PROMISE
-                    } else if (method['MethodName'] === "new") {
-                        return Promise.resolve();
+                    } else if (method['MethodName'] === "news") {
+                        return DSBClient._processed_news(method['Childs']).then(tdata => {
+                            fdata[tdata.kind] = tdata.data;
+                        });
                         // TODO: NEWS PROMISE
                     } else {
                         return Promise.resolve();
@@ -150,6 +152,21 @@ export default class DSBClient {
             return Promise.resolve({
                 kind: "timetables",
                 data: timetables
+            });
+        });
+    }
+
+    static _processed_news(newspl) {
+        return Promise.map(newspl, (news) => {
+            return Promise.resolve({
+                date: news["Date"],
+                title: news["Title"],
+                text: news["Detail"]
+            });
+        }).then(data => {
+            return Promise.resolve({
+                kind: "news",
+                data: data
             });
         });
     }
