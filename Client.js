@@ -59,18 +59,27 @@ export default class DSBClient {
                     return Promise.resolve(InhalteChilds);
                 });
             }).then(NewInhalte => {
+                let fdata = {};
                 return Promise.map(NewInhalte, (method) => {
                     if (!method) return Promise.resolve();
                     if (method['MethodName'] === "timetable") {
-                        return DSBClient._processed_timetable(method['Childs']);
+                        return DSBClient._processed_timetable(method['Childs']).then(tdata => {
+                            fdata[tdata.kind] = tdata.data;
+                        });
                     } else if (method['MethodName'] === "tiles") {
+                        return Promise.resolve();
                         // TODO: AUSHÄNGE PROMISE
                     } else if (method['MethodName'] === "new") {
+                        return Promise.resolve();
                         // TODO: NEWS PROMISE
                     } else {
                         return Promise.resolve();
                     }
+                }).then(() => {
+                    return Promise.resolve(fdata);
                 });
+            }).then(data=>{
+                resolve(data);
             });
         });
     }
@@ -120,18 +129,27 @@ export default class DSBClient {
                     return cheerio.load(body);
                 }
             }).then($ => {
+                debugger;
                 const MonTitle = $(".mon_title");
                 if (!MonTitle.text()) return Promise.reject(new Error("Can not find 'mon_title' in timetable."));
                 if (MonTitle.text().match(/\d*\.\d*\.\d*/).length === 0) return Promise.reject(new Error("Can not find date of timetable."));
-                try {
-                    const date = Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0]);
-                    return Promise.resolve({
-                        src: table['Childs'][0]['Detail'],
-                        date: Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0])
-                    });
-                } catch (e) {
-                    return Promise.reject(new Error("Can't parse date of timetable."));
-                }
+                return new Promise((resolve, reject) => {
+                    try {
+                        const date = Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0]);
+                        resolve({
+                            src: table['Childs'][0]['Detail'],
+                            date: Date.parse(MonTitle.text().match(/\d*\.\d*\.\d*/)[0]),
+                            refreshed: Date.parse(table['Childs'][0]['Date'])
+                        });
+                    } catch (e) {
+                        reject(new Error("Can't parse date of timetable."));
+                    }
+                });
+            });
+        }).then(timetables => {
+            return Promise.resolve({
+                kind: "timetables",
+                data: timetables
             });
         });
     }
