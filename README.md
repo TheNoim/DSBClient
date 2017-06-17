@@ -6,7 +6,14 @@ A module which uses my [dsbapi library](https://github.com/TheNoim/DSBAPI) to fi
 
 - timetable 
 - news 
-- tiles 
+- tiles
+
+### Install
+```bash
+yarn add dsbclient
+# OR
+npm install dsbclient --save
+``` 
 
 ### Usage:
 
