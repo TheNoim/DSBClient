@@ -1,8 +1,9 @@
 {
-  "name": "DSB_AW_CLIENT",
+  "name": "dsbclient",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": "Nils Bergmann",
   "dependencies": {
     "bluebird": "^3.5.0",
     "cheerio": "^1.0.0-rc.1",
