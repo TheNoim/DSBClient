@@ -4,7 +4,7 @@ import rp from 'request-promise';
 import cheerio from 'cheerio';
 import 'datejs';
 
-export default class DSBClient {
+export class DSBClient {
 
     /**
      *
