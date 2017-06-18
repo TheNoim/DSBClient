@@ -1,3 +1,5 @@
+"use strict";
+
 import DSBAPI from 'dsbapi';
 import Promise from 'bluebird';
 import rp from 'request-promise';

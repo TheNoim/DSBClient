@@ -808,8 +808,8 @@ domutils@1.5.1, domutils@^1.5.1:
     domelementtype "1"
 
 dsbapi@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/dsbapi/-/dsbapi-2.0.1.tgz#be38daa3f1256b70a9d8c2bdcaf23a40abd53b9f"
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/dsbapi/-/dsbapi-2.0.2.tgz#14c694ceba2e6ec67e61a30b77902c3f1c118e75"
   dependencies:
     async "^2.4.1"
     bluebird "^3.4.7"
@@ -1766,8 +1766,8 @@ util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
 uuid@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
 
 v8flags@^2.0.10:
   version "2.1.1"
