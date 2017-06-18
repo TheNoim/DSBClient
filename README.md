@@ -17,10 +17,21 @@ npm install dsbclient --save
 
 ### Usage:
 
-```javascript
+New import key
+
+```javascript  
 import Client from 'dsbclient';
 const client = new Client(USERNAME, PASSWORD);
 
 client.fetch() => Returns Promise
 
+```  
+
+Old way  
+
+```javascript  
+const Client = require('dsbclient');
+const client = new Client(USERNAME, PASSWORD);
+
+client.fetch() => Still returns Promise
 ```
