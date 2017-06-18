@@ -1,17 +1,25 @@
 {
   "name": "dsbclient",
   "version": "1.0.1",
-  "main": "index.js",
+  "main": "dist/es2015.js",
   "license": "MIT",
   "author": "Nils Bergmann",
+  "browser": "dist/es2015.js",
+  "scripts": {
+    "build": "babel Client.js --out-file dist/es2015.js --source-maps inline"
+  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "cheerio": "^1.0.0-rc.1",
     "datejs": "^1.0.0-rc3",
     "dsbapi": "^2.0.1",
     "moment": "^2.18.1",
-    "reify": "^0.11.24",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "reify": "^0.11.24",
+    "babel-preset-env": "^1.5.2"
   }
 }
