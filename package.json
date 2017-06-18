@@ -1,6 +1,6 @@
 {
   "name": "dsbclient",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "dist/es2015.js",
   "license": "MIT",
   "author": "Nils Bergmann",
