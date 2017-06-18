@@ -4,9 +4,11 @@
   "main": "dist/es2015.js",
   "license": "MIT",
   "author": "Nils Bergmann",
-  "browser": "dist/es2015.js",
+  "browser": "dist/es2015.min.js",
   "scripts": {
-    "build": "babel Client.js --out-file dist/es2015.js --source-maps inline"
+    "build": "yarn run babel && yarn run uglify",
+    "babel": "babel Client.js --out-file dist/es2015.js --source-maps inline",
+    "uglify": "uglifyjs ./dist/es2015.js --support-ie8 --output ./dist/es2015.min.js"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -19,7 +21,8 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
     "reify": "^0.11.24",
-    "babel-preset-env": "^1.5.2"
+    "uglify-js": "^3.0.18"
   }
 }
