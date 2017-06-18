@@ -4,7 +4,7 @@ import rp from 'request-promise';
 import cheerio from 'cheerio';
 import 'datejs';
 
-export class DSBClient {
+class DSBClient {
 
     /**
      *
@@ -188,8 +188,9 @@ export class DSBClient {
             });
         });
     }
-
 }
+
+module.exports = DSBClient;
 
 Array.prototype.combine = function () {
     let x = [];
