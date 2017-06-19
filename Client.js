@@ -12,11 +12,17 @@ class DSBClient {
      *
      * @param username {String}
      * @param password {String}
+     * @param [cookiejar] {String}
      */
-    constructor(username, password) {
+    constructor(username, password, cookiejar) {
         this.username = username;
         this.password = password;
-        this.api = new DSBAPI(this.username, this.password);
+        this.cookiejar = cookiejar;
+        if (this.cookiejar) {
+            this.api = new DSBAPI(this.username, this.password, this.cookiejar);
+        } else {
+            this.api = new DSBAPI(this.username, this.password);
+        }
         this.fetch = this.fetch.bind(this);
     }
 
