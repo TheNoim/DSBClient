@@ -139,7 +139,6 @@ class DSBClient {
                     return cheerio.load(body);
                 }
             }).then($ => {
-                debugger;
                 const MonTitle = $(".mon_title");
                 if (!MonTitle.text()) return Promise.reject(new Error("Can not find 'mon_title' in timetable."));
                 if (MonTitle.text().match(/\d*\.\d*\.\d*/).length === 0) return Promise.reject(new Error("Can not find date of timetable."));
