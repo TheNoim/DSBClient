@@ -12,17 +12,19 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "cheerio": "^1.0.0-rc.1",
+    "cheerio": "^1.0.0-rc.2",
     "datejs": "^1.0.0-rc3",
-    "dsbapi": "^2.0.1",
+    "dsbapi": "^2.1.0",
     "moment": "^2.18.1",
+    "percentage-calc": "^0.0.1",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-progress": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.5.2",
-    "reify": "^0.11.24",
-    "uglify-js": "^3.0.18"
+    "babel-preset-env": "^1.6.0",
+    "progress": "^2.0.0",
+    "reify": "^0.12.0",
+    "uglify-js": "^3.0.27"
   }
 }
