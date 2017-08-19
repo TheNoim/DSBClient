@@ -242,7 +242,7 @@ class DSBClient extends EventEmitter {
 	}
 }
 
-module.exports = DSBClient;
+export default DSBClient;
 
 Array.prototype.combine = function () {
 	let x = [];
